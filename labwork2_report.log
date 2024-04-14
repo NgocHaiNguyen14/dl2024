@@ -1,0 +1,111 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2024.4.13)  14 APR 2024 15:15
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**labwork2_report.tex
+(./labwork2_report.tex
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(./labwork2_report.aux)
+\openout1 = `labwork2_report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 8.
+
+
+LaTeX Warning: No \author given.
+
+
+! LaTeX Error: Can be used only in preamble.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 \usepackage
+                {amsmath}
+? 
+! Interruption.
+\GenericError  ...                                
+                                                  \endgroup 
+l.20 \usepackage
+                {amsmath}
+? ^^V^^V
+Type <return> to proceed, S to scroll future error messages,
+R to run without stopping, Q to run quietly,
+I to insert something, E to edit your file,
+H for help, X to quit.
+? 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 24.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.47 ...for unlabelled data can be calculate as y_
+                                                  prediction = w0*x_input + w1
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.48 
+     
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.55 ...mulas. With w0, we need to calculate by y_
+                                                  deviation*x_deviation / x_...
+
+? 
+! Emergency stop.
+<inserted text> 
+                $
+l.55 ...mulas. With w0, we need to calculate by y_
+                                                  deviation*x_deviation / x_...
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 224 strings out of 494923
+ 2455 string characters out of 6180742
+ 51045 words of memory out of 5000000
+ 3620 multiletter control sequences out of 15000+600000
+ 7280 words of font info for 26 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 23i,6n,17p,201b,193s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

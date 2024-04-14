@@ -1,0 +1,59 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdftex 2024.4.13)  14 APR 2024 12:10
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**template.tex
+(./template.tex
+! Undefined control sequence.
+l.1 \documentclass
+                  {article}
+? 
+! Undefined control sequence.
+l.4 \title
+          {Labwork 1: Gradient Descent}
+? 
+! Interruption.
+<to be read again> 
+                   {
+l.4 \title{
+           Labwork 1: Gradient Descent}
+? '
+Type <return> to proceed, S to scroll future error messages,
+R to run without stopping, Q to run quietly,
+I to insert something, E to edit your file,
+H for help, X to quit.
+? 
+! Undefined control sequence.
+l.6 \begin
+          {document}
+? 
+! Undefined control sequence.
+l.8 \maketitle
+              
+? 
+! Undefined control sequence.
+l.10 \setlength
+               \parindent{0pt}
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.10 \setlength\parindent{
+                          0pt}
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   {
+l.10 \setlength\parindent{
+                          0pt}
+? 
+! Undefined control sequence.
+l.12 \section
+             {Introduction}
+? 
+! Emergency stop.
+l.12 \section
+             {Introduction}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!
