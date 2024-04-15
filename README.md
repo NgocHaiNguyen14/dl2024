@@ -11,7 +11,6 @@ Students are expected to:
 
 Student Info
 =======================
-
 * Name: Ngoc Hai Nguyen
 * StudentID: M23.ICT.004
 
