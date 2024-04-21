@@ -117,9 +117,54 @@ def plot_iterations_vs_loss(learning_rates, i_stop_list, loss_list):
     # Display the plot
     plt.show()
 
+def calculate_initial_w0_w1(x,y):
+	mean_x = calculate_mean(x)
+	mean_y = calculate_mean(y)
+	numerator = 0
+	denominator = 0
+	for x0,y0 in zip(x,y):
+	  x_deviation = x0 - mean_x
+	  y_deviation = y0 - mean_y
 
+	  numerator += y_deviation*x_deviation
+	  denominator += x_deviation**2
+
+	w1_si = numerator/denominator
+	w0_si = mean_y - w1_si * mean_x
+	return w0_si,w1_si
+
+
+
+#### with w0 = 0 and w1 = 1
+
+ 
 w0 = 0
 w1 = 1
+max_iter = 150
+learning_rate = [0.00005,0.0001,0.0005,0.001,0.003,0.005,0.007,0.009,0.01]
+threshold = 0.001
+
+i_stop_list = []
+loss_list = []
+
+for lr in learning_rate:
+  w0_best, w1_best, i_stop,loss = gradient_descent_w0_w1(x, y, w0, w1, max_iter, lr, threshold)
+  i_stop_list.append(i_stop)
+  loss_list.append(loss)
+# print(i_stop_list)
+# print(loss_list)
+plot_iterations_vs_loss(learning_rate, i_stop_list, loss_list)
+regression_lines = []
+for lr in learning_rate:
+  w0_best, w1_best, i_stop,loss = gradient_descent_w0_w1(x, y, w0, w1, max_iter, lr, threshold)
+  print_result(w0_best, w1_best, i_stop, lr, max_iter)
+  regression_lines.append((w0_best, w1_best))
+
+plot_data_and_regression_line(x, y, regression_lines, learning_rate)
+
+
+#### with calculated w0 and w1
+w0, w1 = calculate_initial_w0_w1(x,y)
 max_iter = 150
 learning_rate = [0.00005,0.0001,0.0005,0.001,0.003,0.005,0.007,0.009,0.01]
 threshold = 0.001
