@@ -1,46 +1,42 @@
-import random
 import math
 
 class NeuralNetwork:
-    def __init__(self, file):
-        with open(file, 'r') as f:
+    def __init__(self, nn_info_file, weights_file, biases_file):
+        # Reading neural network info
+        with open(nn_info_file, 'r') as f:
             lines = f.readlines()
             layer_sizes = [int(line.strip()) for line in lines if line.strip()]
             self.num_layers = layer_sizes[0]
             self.layer_sizes = layer_sizes[1:]
-            self.biases = [self.init_biases(size) for size in self.layer_sizes]
-            self.weights = [self.init_weights(layer_sizes[i], layer_sizes[i+1]) for i in range(self.num_layers - 1)]
+
+        # Reading weights
+        with open(weights_file, 'r') as f:
+            weight_lines = f.readlines()
+            self.weights = [[[float(x) for x in line.strip().split(',')] for line in weight_lines if line.strip()][0]]
+
+        # Reading biases
+        with open(biases_file, 'r') as f:
+            bias_lines = f.readlines()
+            self.biases = [[float(x) for x in line.strip().split(',')] for line in bias_lines if line.strip()]
 
     def feedforward(self, a):
-        for layer in range(self.num_layers - 1):
+        for layer_weights, layer_biases in zip(self.weights, self.biases):
             layer_output = []
 
-            for neuron in range(len(self.biases[layer])):
-                weighted_sum = 0.0
-
-                for input_index in range(len(a)):
-                    weighted_sum += self.weights[layer][neuron][input_index] * a[input_index]
-
-                neuron_output = 1 / (1 + math.exp(-(weighted_sum + self.biases[layer][neuron])))
+            for neuron_weights, bias in zip(layer_weights, layer_biases):
+                weighted_sum = sum(weight * input_data for weight, input_data in zip(neuron_weights, a))
+                neuron_output = 1 / (1 + math.exp(-(weighted_sum + bias)))
                 layer_output.append(neuron_output)
 
             a = layer_output
 
         return a
 
-    def init_biases(self, size):
-        biases = [random.uniform(0, 1) for _ in range(size)]
-        return biases
-
-    def init_weights(self, rows, cols):
-        weights = []
-        for _ in range(rows):
-            row = [random.uniform(0, 1) for _ in range(cols)]
-            weights.append(row)
-        return weights
-
 if __name__ == '__main__':
-    nn = NeuralNetwork("lab4.txt")  # Provide the file name as a string
+    nn = NeuralNetwork("input_XOR.txt", "weights_XOR.txt", "biases_XOR.txt")
+    print("Neural Network Info:")
+    print("Number of Layers:", nn.num_layers)
+    print("Layer Sizes:", nn.layer_sizes)
     print("weights:")
     print(nn.weights)
     print("biases:")
