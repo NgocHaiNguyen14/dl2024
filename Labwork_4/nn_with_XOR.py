@@ -5,19 +5,22 @@ class NeuralNetwork:
         # Reading neural network info
         with open(nn_info_file, 'r') as f:
             lines = f.readlines()
-            layer_sizes = [int(line.strip()) for line in lines if line.strip()]
-            self.num_layers = layer_sizes[0]
-            self.layer_sizes = layer_sizes[1:]
+            self.num_layers = int(lines[0].strip())
+            self.layer_sizes = [int(line.strip()) for line in lines[1:] if line.strip()]
 
         # Reading weights
+        self.weights = []
         with open(weights_file, 'r') as f:
-            weight_lines = f.readlines()
-            self.weights = [[[float(x) for x in line.strip().split(',')] for line in weight_lines if line.strip()][0]]
+            for line in f:
+                weights = [float(x) for x in line.strip().split(',')]
+                self.weights.append(weights)
 
         # Reading biases
+        self.biases = []
         with open(biases_file, 'r') as f:
-            bias_lines = f.readlines()
-            self.biases = [[float(x) for x in line.strip().split(',')] for line in bias_lines if line.strip()]
+            for line in f:
+                biases = [float(x) for x in line.strip().split(',')]
+                self.biases.append(biases)
 
     def feedforward(self, a):
         for layer_weights, layer_biases in zip(self.weights, self.biases):
@@ -33,7 +36,7 @@ class NeuralNetwork:
         return a
 
 if __name__ == '__main__':
-    nn = NeuralNetwork("input_XOR.txt", "weights_XOR.txt", "biases_XOR.txt")
+    nn = NeuralNetwork("nn_XOR.txt", "weight_XOR.txt", "bias_XOR.txt")
     print("Neural Network Info:")
     print("Number of Layers:", nn.num_layers)
     print("Layer Sizes:", nn.layer_sizes)
