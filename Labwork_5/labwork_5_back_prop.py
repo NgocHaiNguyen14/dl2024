@@ -1,5 +1,6 @@
 import random
 import math
+import matplotlib.pyplot as plt
 
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
@@ -56,7 +57,7 @@ class LayerLink:
             for tNeuron in self.toLayer.neurons:
                 if (isinstance(tNeuron, BiasNeuron)):
                     pass
-                links.append(Link(fNeuron, tNeuron, random.uniform(-1,0.5)))
+                links.append(Link(fNeuron, tNeuron, random.uniform(-1,1)))
         return links
 
 class NeuronNetwork:
@@ -66,6 +67,7 @@ class NeuronNetwork:
         self.learning_rate = learning_rate
         self.layers = self._init_layers(layer_no, neuron_no)
         self.layerLinks = self._init_layer_links()
+        self.errors = []
 
     def _get_data(self, file):
         return 3, [2,2,1]
@@ -118,6 +120,7 @@ class NeuronNetwork:
                 error = sum(link.weight * link.toNeuron.error for link in self.layerLinks[i].links if link.fromNeuron == neuron)
                 neuron.error = error * (neuron.output * (1 - neuron.output))
                 j += 1
+                self.errors.append(error)
 
         # Update weights
         for i in range(len(self.layers) - 1):
@@ -144,12 +147,24 @@ class NeuronNetwork:
             for neuron in self.layers[i].neurons:
                 print(f"{i} layer: {neuron.output}")
 
+    def plot_error(self):
+        plt.plot(range(1, len(self.errors) + 1), self.errors)
+        plt.xlabel('Epochs')
+        plt.ylabel('Error')
+        plt.title('Error over Epochs')
+        plt.show()
 
 if __name__ == "__main__":
-    learning_rate = 0.002
+    learning_rate = 0.25
 
     nn = NeuronNetwork(sigmoid, learning_rate,"nn_XOR.txt")
     inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
     targets = [[0], [1], [1], [0]]
-    nn.train(inputs, targets, epochs=1000)
-    nn.output()
+    nn.train(inputs, targets, epochs=5000)
+    # Test the neural network with specific inputs
+    test_inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
+    print("Testing the neural network:")
+    nn.plot_error()
+    for input_data in test_inputs:
+        nn.predict(input_data)
+        print(f"Input: {input_data}, Output: {nn.layers[-1].neurons[-1].output}")
