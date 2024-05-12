@@ -20,21 +20,18 @@ class NeuralNetwork:
 
 
     def feedforward(self, a):
-        for layer in range(self.num_layers - 1):
+        for layer_weights, layer_biases in zip(self.weights, self.biases):
             layer_output = []
 
-            for neuron in range(len(self.biases[layer])):
-                weighted_sum = 0.0
-
-                for input_index in range(len(a)):
-                    weighted_sum += self.weights[layer][neuron][input_index] * a[input_index]
-
-                neuron_output = 1 / (1 + math.exp(-(weighted_sum + self.biases[layer][neuron])))
+            for neuron_weights, bias in zip(layer_weights, layer_biases):
+                weighted_sum = sum(weight * input_data for weight, input_data in zip(neuron_weights, a))
+                neuron_output = 1 / (1 + math.exp(-(weighted_sum + bias)))
                 layer_output.append(neuron_output)
 
             a = layer_output
 
         return a
+
 
     # def load_file(self, file):
     #     with open(weights_file, 'r') as file:

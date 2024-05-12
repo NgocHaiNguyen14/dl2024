@@ -11,16 +11,18 @@ class NeuralNetwork:
         # Reading weights
         self.weights = []
         with open(weights_file, 'r') as f:
-            for line in f:
+            lines = f.readlines()
+            for layer_size, line in zip(self.layer_sizes[1:], lines):
                 weights = [float(x) for x in line.strip().split(',')]
-                self.weights.append(weights)
+                self.weights.append([weights[i:i+self.layer_sizes[0]] for i in range(0, len(weights), self.layer_sizes[0])])
 
         # Reading biases
         self.biases = []
         with open(biases_file, 'r') as f:
-            for line in f:
+            lines = f.readlines()
+            for layer_size, line in zip(self.layer_sizes[1:], lines):
                 biases = [float(x) for x in line.strip().split(',')]
-                self.biases.append(biases)
+                self.biases.append([biases[i:i+self.layer_sizes[0]] for i in range(0, len(biases), self.layer_sizes[0])])
 
     def feedforward(self, a):
         for layer_weights, layer_biases in zip(self.weights, self.biases):
@@ -28,7 +30,7 @@ class NeuralNetwork:
 
             for neuron_weights, bias in zip(layer_weights, layer_biases):
                 weighted_sum = sum(weight * input_data for weight, input_data in zip(neuron_weights, a))
-                neuron_output = 1 / (1 + math.exp(-(weighted_sum + bias)))
+                neuron_output = 1 / (1 + math.exp(-(weighted_sum + bias)))  # Fixed line
                 layer_output.append(neuron_output)
 
             a = layer_output
