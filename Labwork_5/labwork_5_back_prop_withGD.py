@@ -18,7 +18,7 @@ class Neuron:
 
 class BiasNeuron(Neuron):
     def __init__(self, id):
-        super().__init__(lambda: 0, id)  # pass id to parent class
+        super().__init__(lambda: 0, id) 
         self.output = 1
         self.error = 0
 
@@ -96,7 +96,7 @@ class NeuronNetwork:
             neuron.output = inputs[i]
             i += 1
 
-        i = 0  # reset i for layerLinks
+        i = 0  
         for layer in self.layers[1:]:
             for neuron in layer.neurons:
                 neuron_input = 0
@@ -105,13 +105,9 @@ class NeuronNetwork:
                         neuron_input += link.weight * link.fromNeuron.output
 
                 neuron.update(neuron_input)
-            i += 1  # increment i at the end of each layer
-
+            i += 1  
     def _backpropagate(self, targets):
-        # Define your threshold and maximum iterations
-        threshold = 0.01  # adjust this to your desired threshold
-        max_iterations = 50  # adjust this to your desired maximum iterations
-
+        threshold = 0.01  
         for iteration in range(max_iterations):
             # Calculate errors for output layer
             output_layer = self.layers[-1]
@@ -183,3 +179,4 @@ if __name__ == "__main__":
     for input_data in test_inputs:
         nn.predict(input_data)
         print(f"Input: {input_data}, Output: {nn.layers[-1].neurons[-1].output}")
+
