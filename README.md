@@ -14,3 +14,8 @@ Student Info
 * Name: Ngoc Hai Nguyen
 * StudentID: M23.ICT.004
 
+Public ssh-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3Ml2YL532TTHbb7ANnCKCBGWxhzlJDKssHKiTqgp$
+
+
+
+
