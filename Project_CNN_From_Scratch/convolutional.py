@@ -1,6 +1,5 @@
 import random
 import math
-from scipy import signal
 from layer import Layer
 
 class Convolutional(Layer):
