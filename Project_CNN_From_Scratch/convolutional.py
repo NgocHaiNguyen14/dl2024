@@ -1,17 +1,22 @@
 import random
 import math
-from layer import Layer
+from layers import Layer
 
 class Convolutional(Layer):
-    def __init__(self, input_shape, kernel_size, depth):
+    def __init__(self, input_shape, kernel_size, depth, mode = "valid"):
         input_depth, input_height, input_width = input_shape
         self.depth = depth
         self.input_shape = input_shape
         self.input_depth = input_depth
-        self.output_shape = (depth, input_height - kernel_size + 1, input_width - kernel_size + 1)
         self.kernels_shape = (depth, input_depth, kernel_size, kernel_size)
         self.kernels = [[[[random.random() for _ in range(kernel_size)] for _ in range(kernel_size)] for _ in range(input_depth)] for _ in range(depth)]
         self.biases = [[[random.random() for _ in range(input_width - kernel_size + 1)] for _ in range(input_height - kernel_size + 1)] for _ in range(depth)]
+        if mode == "valid":
+            self.output_shape = (depth, input_height - kernel_size + 1, input_width - kernel_size + 1)
+        elif mode == "full":
+            self.output_shape = (depth, input_height, input_width)
+        else:
+            raise ValueError("ERROR in mode: full or valid !!!")
 
     def forward(self, input):
         self.input = input

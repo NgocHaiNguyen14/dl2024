@@ -1,5 +1,5 @@
 import numpy.random as nprandom
-from layer import Layer
+from layers import Layer
 
 class Dense(Layer):
     def __init__(self, input_size, output_size):

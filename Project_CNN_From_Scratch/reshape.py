@@ -1,4 +1,4 @@
-from layer import Layer
+from layers import Layer
 
 class Reshape(Layer):
     def __init__(self, input_shape, output_shape):

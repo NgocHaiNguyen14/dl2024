@@ -38,3 +38,26 @@ class Softmax(Layer):
         subtracted = [[identity[i][j] - output_transpose[i][j] for j in range(n)] for i in range(n)]
         multiplied = [[self.output[i][j] * subtracted[i][j] for j in range(n)] for i in range(n)]
         return [[sum(multiplied[i][k] * output_gradient[k][j] for k in range(n)) for j in range(len(output_gradient[0]))] for i in range(len(multiplied))]
+### Test for program 
+
+def main():
+  # Create some sample data
+  X = np.random.rand(3, 2)  # Input data with shape (3, 2)
+
+  # Test Tanh activation
+  tanh_activation = Tanh()
+  tanh_output = tanh_activation.forward(X)
+  print("Tanh output:", tanh_output)
+
+  # Test Sigmoid activation
+  sigmoid_activation = Sigmoid()
+  sigmoid_output = sigmoid_activation.forward(X)
+  print("Sigmoid output:", sigmoid_output)
+
+  # Test Softmax layer
+  softmax_layer = Softmax()
+  softmax_output = softmax_layer.forward(X)
+  print("Softmax output:", softmax_output)
+
+if __name__ == "__main__":
+  main()
