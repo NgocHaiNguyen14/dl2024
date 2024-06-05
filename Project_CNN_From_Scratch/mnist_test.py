@@ -33,7 +33,7 @@ network = [
     Reshape((5, 26, 26), (5 * 26 * 26, 1)),
     Dense(5 * 26 * 26, 100),
     Sigmoid(),
-    Dense(100, 2),
+    Dense(100, 10),
     Sigmoid()
 ]
 
