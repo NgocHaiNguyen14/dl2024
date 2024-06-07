@@ -49,6 +49,8 @@ train(
 )
 
 # test
+"""
 for x, y in zip(x_test, y_test):
     output = predict(network, x)
     print(f"pred: {np.argmax(output)}, true: {np.argmax(y)}")
+"""

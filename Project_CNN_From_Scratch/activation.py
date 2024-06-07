@@ -15,7 +15,7 @@ class Activation(Layer):
     @staticmethod
     def elementwise_multiply(list1, list2):
         return [[list1[i][j] * list2[i][j] for j in range(len(list1[0]))] for i in range(len(list1))]
-
+"""
 def main():
     # Create two matrices of the same size with predefined values
     matrix1 = [
@@ -40,3 +40,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
