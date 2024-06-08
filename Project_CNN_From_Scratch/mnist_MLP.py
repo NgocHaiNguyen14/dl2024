@@ -27,22 +27,13 @@ def preprocess_data(x, y, limit):
 x_train, y_train = preprocess_data(x_train, y_train, 100)
 x_test, y_test = preprocess_data(x_test, y_test, 20)
 
-
-# neural network 1
-network1 = [
-    Convolutional((1, 28, 28), 3, 5,mode="valid"),
-    Sigmoid(),
-    Reshape((5, 26, 26), (5 * 26 * 26, 1)),
-    Dense(5 * 26 * 26, 100),
-    Sigmoid(),
-    Dense(100, 2),
-    Sigmoid()
-]
-
+# Multi Layers Perceptrons
 # neural network 1
 network1 = [
     #Reshape((1, 28, 28), ( 28 * 28, 1)),
-    Dense(28 * 28, 100),
+    Dense(28 * 28, 1000),
+    Tanh(),
+    Dense(1000,100),
     Tanh(),
     Dense(100, 10),
     Tanh()
@@ -52,5 +43,5 @@ network1 = [
 train(network1, mean_squared_error, mean_squared_error_prime, x_train, y_train, epochs=100, learning_rate=0.01)
 
 for x, y in zip(x_test, y_test):
-    output = predict(network, x)
+    output = predict(network1, x)
     print(f"pred: {np.argmax(output)}, true: {np.argmax(y)}")

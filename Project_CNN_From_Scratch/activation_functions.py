@@ -8,7 +8,7 @@ class Tanh(Activation):
             return math.tanh(x)
 
         def tanh_prime(x):
-            return 1 - math.tanh(item) ** 2 
+            return 1 - math.tanh(x) ** 2 
 
         super().__init__(tanh, tanh_prime)
 
