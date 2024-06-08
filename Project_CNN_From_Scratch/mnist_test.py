@@ -25,7 +25,7 @@ def preprocess_data(x, y, limit):
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, y_train = preprocess_data(x_train, y_train, 100)
 x_test, y_test = preprocess_data(x_test, y_test, 100)
-
+#adjust
 # neural network
 network = [
     Convolutional((1, 28, 28), 3, 5),
