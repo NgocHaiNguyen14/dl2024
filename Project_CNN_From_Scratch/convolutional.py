@@ -11,14 +11,14 @@ class Convolutional(Layer):
         self.kernel_size = kernel_size
         self.kernels_shape = (depth, input_depth, kernel_size, kernel_size)
         self.kernels = [[[[random.random() for _ in range(kernel_size)] for _ in range(kernel_size)] for _ in range(input_depth)] for _ in range(depth)]
+        self.mode = mode
         if mode == "valid":
             self.output_shape = (depth, input_height - kernel_size + 1, input_width - kernel_size + 1)
         elif mode == "full":
-            self.output_shape = (depth, input_height + kernel_size - 1, input_width + kernel_size - 1)
+            self.output_shape = (depth, input_height, input_width)
         else:
             raise ValueError("ERROR in mode: full or valid !!!")
         self.biases = [[[random.random() for _ in range(self.output_shape[2])] for _ in range(self.output_shape[1])] for _ in range(depth)]
-        self.mode = mode
 
     def pad_input(self, input, pad_height, pad_width):
         padded_input = []
