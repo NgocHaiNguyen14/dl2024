@@ -1,32 +1,28 @@
-import numpy as np #import numpy just for testing
-import numpy.random as nprandom
 from layers import Layer
+from LA import Helper
+import random
 
 class Dense(Layer):
     def __init__(self, input_size, output_size):
-        self.weights = nprandom.randn(output_size, input_size)
-        self.bias = nprandom.randn(output_size, 1)
+        self.weights = [[random.gauss(0, 1) for _ in range(input_size)] for _ in range(output_size)]
+        self.bias = [[random.gauss(0, 1)] for _ in range(output_size)]
 
     def forward(self, input):
+        # print("-------------------------DENSE FORWARD-------------------------")
         self.input = input
-        output = []
-        for i in range(len(self.weights)):
-            output.append(sum(self.weights[i][j] * input[j] for j in range(len(input))) + self.bias[i][0])
-        return output
+        return Helper.add(Helper.dot_product(self.weights, self.input), self.bias)
 
     def backward(self, output_gradient, learning_rate):
-        weights_gradient = [[0 for _ in range(len(self.weights[0]))] for _ in range(len(self.weights))]
-        for i in range(len(output_gradient)):
-            for j in range(len(self.input)):
-                weights_gradient[i][j] = output_gradient[i] * self.input[j]
-        input_gradient = []
-        for j in range(len(self.input)):
-            input_gradient.append(sum(self.weights[i][j] * output_gradient[i] for i in range(len(output_gradient))))
+        weights_gradient = Helper.dot_product(output_gradient, Helper.transpose(self.input))
+        input_gradient = Helper.dot_product(Helper.transpose(self.weights), output_gradient)
+
         for i in range(len(self.weights)):
             for j in range(len(self.weights[0])):
                 self.weights[i][j] -= learning_rate * weights_gradient[i][j]
+
         for i in range(len(self.bias)):
-            self.bias[i][0] -= learning_rate * output_gradient[i]
+            self.bias[i][0] -= learning_rate * output_gradient[i][0]
+
         return input_gradient
 
 

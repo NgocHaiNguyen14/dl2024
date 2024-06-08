@@ -15,11 +15,12 @@ class Tanh(Activation):
 class Sigmoid(Activation):
     def __init__(self):
         def sigmoid(x):
-            return [[1 / (1 + math.exp(-item)) for item in row] for row in x]
-
+            return 1 / (1 + math.exp(-x))
+            
         def sigmoid_prime(x):
             s = sigmoid(x)
-            return [[item * (1 - item) for item in row] for row in s]
+            return s * (1 - s)
+
 
         super().__init__(sigmoid, sigmoid_prime)
 

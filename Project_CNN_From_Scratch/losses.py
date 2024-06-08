@@ -1,3 +1,4 @@
+import math
 def mean_squared_error(y_true, y_pred):
     n = len(y_true)
     error = 0
@@ -12,19 +13,56 @@ def mean_squared_error_prime(y_true, y_pred):
         gradient.append(2 * (y_pred[i] - y_true[i]) / n)
     return gradient
 
-def binary_cross_entropy(y_true, y_pred):
-    n = len(y_true)
-    error = 0
-    for i in range(n):
-        error += -y_true[i] * math.log(y_pred[i]) - (1 - y_true[i]) * math.log(1 - y_pred[i])
-    return error / n
+def binary_cross_entropy(y_actual, y_predicted):
+    avoidance = 1e-12  # to avoid log(0)
+    total_loss = 0.0
+    total_count = 0
+    
+    for actual, predicted in zip(y_actual, y_predicted):
+        for actual_value, predicted_value in zip(actual, predicted):
+            if isinstance(predicted_value, list):
+                pred_val = predicted_value[0]
+            else:
+                pred_val = predicted_value
 
-def binary_cross_entropy_prime(y_true, y_pred):
-    n = len(y_true)
-    gradient = []
-    for i in range(n):
-        gradient.append(((1 - y_true[i]) / (1 - y_pred[i]) - y_true[i] / y_pred[i]) / n)
-    return gradient
+            pred_val = max(min(pred_val, 1. - avoidance), avoidance)
+
+            if isinstance(actual_value, list):
+                actual_val = actual_value[0]
+            else:
+                actual_val = actual_value
+
+            total_loss += -actual_val * math.log(pred_val) - (1 - actual_val) * math.log(1 - pred_val)
+            total_count += 1
+
+    return total_loss / total_count
+
+def binary_cross_entropy_derivative(y_actual, y_predicted):
+    avoidance = 1e-12  # to avoid division by 0
+    derivatives = []
+    total_count = len(y_actual) * len(y_actual[0])
+    
+    for actual, predicted in zip(y_actual, y_predicted):
+        layer_derivative = []
+        for actual_value, predicted_value in zip(actual, predicted):
+            if isinstance(predicted_value, list):
+                pred_val = predicted_value[0]
+            else:
+                pred_val = predicted_value
+
+            pred_val = max(min(pred_val, 1. - avoidance), avoidance)
+
+            if isinstance(actual_value, list):
+                actual_val = actual_value[0]
+            else:
+                actual_val = actual_value
+
+            derivative = ((pred_val - actual_val) / (pred_val * (1. - pred_val))) / total_count
+            layer_derivative.append(derivative)
+        
+        derivatives.append(layer_derivative)
+    
+    return derivatives
 #Test functions
 """
 import math

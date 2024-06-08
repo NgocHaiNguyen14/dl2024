@@ -1,5 +1,6 @@
 import random
 from layers import Layer
+from LA import Helper
 
 class Convolutional(Layer):
     def __init__(self, input_shape, kernel_size, depth, mode="valid"):
@@ -46,6 +47,7 @@ class Convolutional(Layer):
                             for kw in range(len(self.kernels[i][j][0])):
                                 conv_result += self.input[j][h + kh][w + kw] * self.kernels[i][j][kh][kw]
                         self.output[i][h][w] += conv_result
+        #Helper.print_3d_matrix(self.output)
         return self.output
 
     def backward(self, output_gradient, learning_rate):

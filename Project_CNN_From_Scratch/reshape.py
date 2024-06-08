@@ -12,7 +12,7 @@ class Reshape(Layer):
         return self.reshape(output_gradient, self.input_shape)
 
     def flatten(self, array):
-        if isinstance(array, int):
+        if not isinstance(array, list):
             return [array]
         flat = []
         for item in array:
