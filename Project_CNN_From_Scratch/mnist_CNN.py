@@ -44,8 +44,10 @@ network1 = [
 
 # neural network 2
 network2 = [
-    Convolutional((1, 28, 28), 3, 5,mode="valid"),
-    ReLU(),
+    Convolutional((1, 28, 28), 3, 5,mode="full"),
+    Sigmoid(),
+    Convolutional((5, 28, 28), 3, 5,mode="valid"),
+    Sigmoid(),
     Reshape((5, 26, 26), (5 * 26 * 26, 1)),
     Dense(5 * 26 * 26, 100),
     Sigmoid(),
