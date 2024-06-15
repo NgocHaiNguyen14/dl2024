@@ -20,15 +20,16 @@ class Convolutional(Layer):
             raise ValueError("ERROR in mode: full or valid !!!")
         self.biases = [[[random.random() for _ in range(self.output_shape[2])] for _ in range(self.output_shape[1])] for _ in range(depth)]
 
-    def pad_input(self, input, pad_height, pad_width):
-        padded_input = []
-        for depth_slice in input:
-            padded_slice = [[0] * (len(depth_slice[0]) + 2 * pad_width) for _ in range(pad_height)]
-            for row in depth_slice:
-                padded_row = [0] * pad_width + row + [0] * pad_width
-                padded_slice.append(padded_row)
-            padded_slice.extend([[0] * (len(depth_slice[0]) + 2 * pad_width) for _ in range(pad_height)])
-            padded_input.append(padded_slice)
+    def pad_input(input, pad_height, pad_width):
+        original_height = len(input)
+        original_width = len(input[0])
+        new_height = original_height + 2 * pad_height
+        new_width = original_width + 2 * pad_width
+        padded_input = [[0] * new_width for _ in range(new_height)]
+        for row in range(original_height):
+            for col in range(original_width):
+                padded_input[row + pad_height][col + pad_width] = input[row][col]
+        
         return padded_input
 
     def forward(self, input):
@@ -47,7 +48,6 @@ class Convolutional(Layer):
                             for kw in range(len(self.kernels[i][j][0])):
                                 conv_result += self.input[j][h + kh][w + kw] * self.kernels[i][j][kh][kw]
                         self.output[i][h][w] += conv_result
-        #Helper.print_3d_matrix(self.output)
         return self.output
 
     def backward(self, output_gradient, learning_rate):

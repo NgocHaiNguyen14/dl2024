@@ -13,7 +13,7 @@ def train(network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_r
         error = 0
         for x, y in zip(x_train, y_train):
             output = predict(network, x)
-	    # print("Forward done")
+            #print("Forward done")
             #print(f"Output forward = {output}")
             #print(f"y = {y}")
             error += loss(y, output)
@@ -28,7 +28,7 @@ def train(network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_r
 
         error /= len(x_train)
         if error < 0.01 or abs(error_prev - error) < 0.000000001 :
-            print(f"Stopped at epoch number {e}")
+            print(f"Stopped at epoch number {e} because the error had minor changes.")
             break
         print(f"Lost after epoch {e}: {error}")
         if verbose:

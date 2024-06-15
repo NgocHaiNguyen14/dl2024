@@ -35,19 +35,24 @@ class ReLU(Activation):
 
 class Softmax(Layer):
     def forward(self, input):
-        exp_input = [[math.exp(item) for item in row] for row in input]
-        sum_exp_input = [sum(row) for row in exp_input]
-        self.output = [[exp_input[i][j] / sum_exp_input[i] for j in range(len(exp_input[0]))] for i in range(len(exp_input))]
+        exp_input = [math.exp(i[0]) for i in input]
+        sum_exp_input = sum(exp_input)
+        self.output = [i / sum_exp_input for i in exp_input]
+        #print(self.output)
         return self.output
-
+    
     def backward(self, output_gradient, learning_rate):
-        # This version is faster than the one presented in the video
-        n = len(self.output[0])
-        identity = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
-        output_transpose = list(map(list, zip(*self.output)))
-        subtracted = [[identity[i][j] - output_transpose[i][j] for j in range(n)] for i in range(n)]
-        multiplied = [[self.output[i][j] * subtracted[i][j] for j in range(n)] for i in range(n)]
-        return [[sum(multiplied[i][k] * output_gradient[k][j] for k in range(n)) for j in range(len(output_gradient[0]))] for i in range(len(multiplied))]
+        n = len(self.output)
+        identity_matrix = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+        
+        jacobian_matrix = [
+            [self.output[i] * (identity_matrix[i][j] - self.output[j]) for j in range(n)]
+            for i in range(n)
+        ]
+        
+        input_gradient = [sum(jacobian_matrix[i][j] * output_gradient[j] for j in range(n)) for i in range(n)]
+        
+        return input_gradient
 ### Test for program 
 """
 def main():
