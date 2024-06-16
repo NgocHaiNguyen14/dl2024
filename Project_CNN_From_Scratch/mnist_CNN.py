@@ -34,7 +34,7 @@ x_test, y_test = preprocess_data(x_test, y_test, 20)
 # neural network 1
 network1 = [
     Convolutional((1, 28, 28), 3, 5,mode="valid"),
-    Sigmoid(),
+    ReLU(),
     Reshape((5, 26, 26), (5 * 26 * 26, 1)),
     Dense(5 * 26 * 26, 100),
     Sigmoid(),
