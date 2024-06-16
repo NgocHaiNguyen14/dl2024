@@ -38,7 +38,7 @@ network1 = [
 ]
 
 # train network1
-train(network1, mean_squared_error, mean_squared_error_prime, x_train, y_train, epochs=100, learning_rate=0.01)
+train(network1, mean_squared_error, mean_squared_error_prime, x_train, y_train, epochs=20, learning_rate=0.01)
 
 for x, y in zip(x_test, y_test):
     output = predict(network1, x)
